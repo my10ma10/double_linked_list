@@ -79,7 +79,7 @@ TEST_F(ListFixture, alloc_cons_test) {
 
 
 TEST_F(ListFixture, modifying_test) {
-    /// insert, erase, merge, clear
+    /// insert, erase, merge, clear, reverse
     List<int> list = {1, 2, 3, 4};
 
     /// insert
@@ -100,6 +100,13 @@ TEST_F(ListFixture, modifying_test) {
     list.erase(list.begin(), list.begin() + 3);
     EXPECT_EQ(list.size(), 1);
     EXPECT_EQ(list.front(), 4);
+
+    ///
+}
+
+
+TEST_F(ListFixture, sorting_test) {
+    
 }
 
 TEST_F(ListFixture, iterators_test) {
