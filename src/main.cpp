@@ -3,7 +3,6 @@
 
 int main() {
     try {
-        List<int> list = {1, 2, -2, 4, 0, -6};
         // List<int> list;
         // list = std::move(old_list);
 
@@ -11,16 +10,21 @@ int main() {
         //     std::cout << *it << std::endl;
             
         // }
-        list.pop_back();
-        list.pop_back();
-        list.push_back(2);
+        List<int> list = {-4, 4, 1, 0, -3, 18, 5};
+
+        list.sort();
+        for (auto it = list.begin(); it != list.end(); ++it) {
+            std::cout << *it << std::endl;
+        }
         
+        list.reverse();        
         for (auto it = list.begin(); it != list.end(); ++it) {
             std::cout << *it << std::endl;
         }
         std::cout << "size = " << list.size() << std::endl;
     }
     catch (std::exception& ex) {
+        std::cout << "Exception\n";
         std::cout << ex.what() << std::endl;
     }
     

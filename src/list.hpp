@@ -2,6 +2,8 @@
 #include <iostream>
 #include <memory>
 
+#include "merge.hpp"
+
 template <typename T>
 class List {
 protected:
@@ -23,6 +25,7 @@ public:
     explicit List();
     explicit List(size_t count, const T& alloc_elem);
     List(std::initializer_list<T> initList);
+    List(typename List<T>::Iterator from, typename List<T>::Iterator to);
 
     /// правило пяти
     ~List();
@@ -74,7 +77,8 @@ public:
     Iterator erase(const Iterator& pos);    
     Iterator erase(const Iterator& first, const Iterator& last);
     
-    void merge(List<T>& other);
+    void merge(const List<T>& other);
+    void merge(List<T>&& other);
     void sort();
     void reverse();
 
@@ -105,6 +109,13 @@ List<T>::List(std::initializer_list<T> initList) {
 }
 
 template <typename T>
+List<T>::List(typename List<T>::Iterator from, typename List<T>::Iterator to) {
+    for (auto it = from; it != to; ++it) {
+        this->push_back(*it);
+    }
+}
+
+template <typename T>
 List<T>::~List()
 {
     Node* current = head;
@@ -114,12 +125,12 @@ List<T>::~List()
         current = next;
     }
     head = tail = nullptr;
-    this->_size = 0;   
+    this->_size = 0;  
 }
 
 template <typename T>
 List<T>::List(const List<T> &other) {
-    std::cout << "copy cons\n";
+    // std::cout << "copy cons\n";
     if (other._size == 0) {
         return;
     }
@@ -130,7 +141,7 @@ List<T>::List(const List<T> &other) {
 
 template <typename T>
 List<T>::List(List<T>&& other) {
-    std::cout << "move cons\n";
+    // std::cout << "move cons\n";
     this->head = other.head;
     this->tail = other.tail;
     this->_size = other._size;
@@ -142,7 +153,7 @@ List<T>::List(List<T>&& other) {
 
 template <typename T>
 List<T>& List<T>::operator=(const List<T>& other) {
-    std::cout << "copy operator=\n";
+    // std::cout << "copy operator=\n";
     if (this != &other) {
         List<T> tmp(other);
         swapThis(tmp);
@@ -152,7 +163,7 @@ List<T>& List<T>::operator=(const List<T>& other) {
 
 template <typename T>
 List<T>& List<T>::operator=(List<T>&& other) {
-    std::cout << "move operator=\n";
+    // std::cout << "move operator=\n";
     if (this != &other) {
         this->clear();
 
@@ -295,22 +306,58 @@ typename List<T>::Iterator List<T>::erase(const Iterator& first, const Iterator&
 }
 
 template <typename T>
-void List<T>::merge(List<T>& other) {
-    if (*this != other) {
-        this->tail->nextP = other.head;
-        other.head->prevP = this->tail;
+void List<T>::merge(const List<T>& other) {
+    if (this != &other) {
+        List<T> tmp(other);
+        merge(std::move(tmp));
     }
 }
 
 template <typename T>
-void List<T>::sort() {
+void List<T>::merge(List<T>&& other) {
+    if (!this->empty()) {
+        this->tail->nextP = other.head;
+        other.head->prevP = this->tail;
+        this->tail = other.tail;
+    }
+    else {
+        this->head = other.head;
+        this->tail = other.tail;
+    }
 
+    this->_size += other._size;        
+
+    other._size = 0;
+    other.head = other.tail = nullptr;
+}
+
+template <typename T>
+void List<T>::sort() {
+    if (!empty()) {
+        *this = mergeSort(*this);
+    }
+}
+
+template <typename T>
+void List<T>::reverse() {
+    if (!empty()) {
+        Node* current = head;
+        while (current != nullptr) {
+            std::swap(current->nextP, current->prevP);
+            current = current->prevP;
+        }
+        std::swap(head, tail);
+    }
 }
 
 template <typename T>
 void List<T>::clear() {
-    erase(begin(), end());
-    _size = 0;
+    if (!empty()) {
+        erase(begin(), end());
+        if (_size != 0) {
+            _size = 0;
+        }
+    }
 }
 
 template <typename T>

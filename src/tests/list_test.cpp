@@ -76,10 +76,12 @@ TEST_F(ListFixture, alloc_cons_test) {
     EXPECT_EQ(alloc_list.back(), 1);
 }
 
-
+TEST_F(ListFixture, operators_test) {
+    List<int> other = {1, 2, 3, 4};
+    EXPECT_EQ(other == ininList_List, true);
+}
 
 TEST_F(ListFixture, modifying_test) {
-    /// insert, erase, merge, clear, reverse
     List<int> list = {1, 2, 3, 4};
 
     /// insert
@@ -88,7 +90,6 @@ TEST_F(ListFixture, modifying_test) {
     list.insert(list.begin() + 2, 5);
     auto insert_it = list.begin() + 2;
     EXPECT_EQ(insert_it, 5);
-    
     
     /// erase
     list = {1, 2, 3, 4};
@@ -101,12 +102,45 @@ TEST_F(ListFixture, modifying_test) {
     EXPECT_EQ(list.size(), 1);
     EXPECT_EQ(list.front(), 4);
 
-    ///
-}
+    /// merge
+    list = {1, 2, 3};
+    List<int> other = {4, 5, 6};
+    list.merge(other);
+    List<int> res = {1, 2, 3, 4, 5, 6};
+    EXPECT_EQ(list, res);
 
+    list = {};
+    list.merge(other);
+    res = {4, 5, 6};
+    EXPECT_EQ(list, res);
 
-TEST_F(ListFixture, sorting_test) {
+    /// clear
+    list = {1, 2, 3, 4};
+    list.clear();
+    res = {};
+    EXPECT_EQ(list.size(), 0);
+    EXPECT_EQ(list, res);
+
+    /// sort
+    list = {-3, 2, 0, -5, 11};
+    list.sort();
+    res = {-5, -3, 0, 2, 11};
+    EXPECT_EQ(list, res);
     
+    list = {4, 3, 2, 0};
+    list.sort();
+    res = {0, 2, 3, 4};
+    EXPECT_EQ(list, res);
+
+    /// reverse
+    list = {1, 2, 3, 4};
+    list.reverse();
+    res = {4, 3, 2, 1};
+    EXPECT_EQ(list, res);
+
+    list = {};
+    list.reverse();
+    EXPECT_EQ(list, empty_List);
 }
 
 TEST_F(ListFixture, iterators_test) {
@@ -130,6 +164,4 @@ TEST_F(ListFixture, iterators_test) {
     EXPECT_EQ(*it, 3);
     it--;
     EXPECT_EQ(*it, 2);
-
-
 }
