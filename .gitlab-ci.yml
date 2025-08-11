@@ -1,0 +1,27 @@
+stages:
+  - build
+  - test
+  - docs
+
+
+build-ubuntu:
+  stage: build
+  script:
+    - echo "Build Stage"
+    - echo $CI_PROJECT_PATH
+    - ls -al
+
+test-ubuntu:
+  stage: test
+  script:
+    - echo "Test Stage"
+  needs:
+    - build
+
+docs-ubuntu:
+  stage: docs
+  script:
+    - echo "Docs Stage"
+  needs:
+    - test
+    
