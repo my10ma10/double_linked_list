@@ -12,6 +12,10 @@ build-ubuntu:
     - mkdir -p build && cd build
     - cmake ..
     - make
+  artifacts:
+    expire_in: "1 hour"
+    paths:
+      - /build
   tags:
     - ubuntu
 
