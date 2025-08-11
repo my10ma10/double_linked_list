@@ -8,7 +8,7 @@ before_script:
   - git submodule update --init --recursive
 
 
-build-ubuntu:
+build-job:
   stage: build
   script:
     - echo "Build Stage"
@@ -16,29 +16,30 @@ build-ubuntu:
     - cmake ..
     - make
   artifacts:
-    expire_in: "1 hour"
+    name: ${CI_COMMIT_SHORT_SHA}/build
     paths:
       - build/
+    expire_in: "1 hour"
   tags:
     - ubuntu
 
-test-ubuntu:
+test-job:
   stage: test
   script:
     - echo "Test Stage"
     - ls -al
     - ./list_test
   needs:
-    - build-ubuntu
+    - build-job
   tags:
     - ubuntu
 
-docs-ubuntu:
+docs-job:
   stage: docs
   script:
     - echo "Docs Stage"
   needs:
-    - test-ubuntu
+    - test-job
   tags:
     - ubuntu
     
