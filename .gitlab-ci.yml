@@ -12,13 +12,9 @@ build-ubuntu:
   stage: build
   script:
     - echo "Build Stage"
-    - cd extern/googletest
-    - ls -al
-    - cd googletest
-    - ls -al
-    # - mkdir -p build && cd build
-    # - cmake ..
-    # - make
+    - mkdir -p build && cd build
+    - cmake ..
+    - make
   artifacts:
     expire_in: "1 hour"
     paths:
