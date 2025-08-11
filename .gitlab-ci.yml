@@ -9,7 +9,9 @@ build-ubuntu:
   script:
     - echo "Build Stage"
     - echo $CI_PROJECT_PATH
-    - ls -al
+    - mkdir -p build && cd build
+    - cmake ..
+    - make
   tags:
     - ubuntu
 
@@ -17,6 +19,8 @@ test-ubuntu:
   stage: test
   script:
     - echo "Test Stage"
+    - ls -al
+    - ./list_test
   needs:
     - build-ubuntu
   tags:
