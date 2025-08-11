@@ -15,7 +15,7 @@ build-ubuntu:
   artifacts:
     expire_in: "1 hour"
     paths:
-      - /build
+      - build/
   tags:
     - ubuntu
 
