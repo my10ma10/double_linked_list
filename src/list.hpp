@@ -251,10 +251,10 @@ void List<T>::pop_back() {
 
 template <typename T>
 void List<T>::insert(const Iterator& pos, const T& value) {
-    typename Iterator prev_node_iter = pos-1;
-    typename Iterator next_node_iter = pos;
+    Iterator prev_node_iter = pos-1;
+    Iterator next_node_iter = pos;
 
-    typename Node* new_node = new Node(value, prev_node_iter.node, next_node_iter.node);
+    Node* new_node = new Node(value, prev_node_iter.node, next_node_iter.node);
     prev_node_iter.node->nextP = new_node;
     next_node_iter.node->prevP = new_node;
 
@@ -381,7 +381,7 @@ typename List<T>::Iterator List<T>::end() const {
 
 template <typename T>
 typename List<T>::Iterator List<T>::Iterator::operator+(size_t shift) const {
-    typename Iterator curr_it = *this;
+    Iterator curr_it = *this;
     for (size_t i = 0; i < shift; ++i) {
         if (node->nextP != nullptr) {
             curr_it.node = curr_it.node->nextP;
@@ -395,7 +395,7 @@ typename List<T>::Iterator List<T>::Iterator::operator+(size_t shift) const {
 
 template <typename T>
 typename List<T>::Iterator List<T>::Iterator::operator-(size_t shift) const {
-    typename Iterator curr_it = *this;
+    Iterator curr_it = *this;
     for (size_t i = 0; i < shift; ++i) {
         if (node->prevP != nullptr) {
             curr_it.node = curr_it.node->prevP;
