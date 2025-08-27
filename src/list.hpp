@@ -38,8 +38,8 @@ public:
         friend class List;
         
         explicit Iterator(Node* node) : node(node) {}
-        Iterator operator+(size_t shift);
-        Iterator operator-(size_t shift);
+        Iterator operator+(size_t shift) const;
+        Iterator operator-(size_t shift) const;
 
         Iterator& operator++();
         Iterator operator++(int);
@@ -180,21 +180,20 @@ List<T>& List<T>::operator=(List<T>&& other) {
 
 template <typename T>
 void List<T>::swapThis(List& copy) {
-    std::cout << "swapping\n";
     std::swap(this->head, copy.head);
     std::swap(this->tail, copy.tail);
     std::swap(this->_size, copy._size);
 }
 
 template <typename T>
-List<T>& List<T>::operator=(std::initializer_list<T> initList)
-{
-    return List<T>(initList);
+List<T>& List<T>::operator=(std::initializer_list<T> initList) {
+    *this = List<T>(initList);
+    return *this;
 }
 
 template <typename T>
 bool List<T>::operator==(const List& other) {
-    return (this->head == other->head && this->tail == other->tail);
+    return (this->head == other.head && this->tail == other.tail);
 }
 
 template <typename T>
@@ -252,10 +251,10 @@ void List<T>::pop_back() {
 
 template <typename T>
 void List<T>::insert(const Iterator& pos, const T& value) {
-    Iterator prev_node_iter = pos-1;
-    Iterator next_node_iter = pos;
+    typename Iterator prev_node_iter = pos-1;
+    typename Iterator next_node_iter = pos;
 
-    Node* new_node = new Node(value, prev_node_iter.node, next_node_iter.node);
+    typename Node* new_node = new Node(value, prev_node_iter.node, next_node_iter.node);
     prev_node_iter.node->nextP = new_node;
     next_node_iter.node->prevP = new_node;
 
@@ -381,8 +380,8 @@ typename List<T>::Iterator List<T>::end() const {
 }
 
 template <typename T>
-typename List<T>::Iterator List<T>::Iterator::operator+(size_t shift) {
-    Iterator curr_it = *this;
+typename List<T>::Iterator List<T>::Iterator::operator+(size_t shift) const {
+    typename Iterator curr_it = *this;
     for (size_t i = 0; i < shift; ++i) {
         if (node->nextP != nullptr) {
             curr_it.node = curr_it.node->nextP;
@@ -395,8 +394,8 @@ typename List<T>::Iterator List<T>::Iterator::operator+(size_t shift) {
 }
 
 template <typename T>
-typename List<T>::Iterator List<T>::Iterator::operator-(size_t shift) {
-    Iterator curr_it = *this;
+typename List<T>::Iterator List<T>::Iterator::operator-(size_t shift) const {
+    typename Iterator curr_it = *this;
     for (size_t i = 0; i < shift; ++i) {
         if (node->prevP != nullptr) {
             curr_it.node = curr_it.node->prevP;

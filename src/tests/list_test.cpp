@@ -3,8 +3,8 @@
 TEST_F(ListFixture, empty_list_test) {
     EXPECT_TRUE(empty_List.empty());
     
-    EXPECT_EQ(empty_List.begin(), nullptr);
-    EXPECT_EQ(empty_List.end(), nullptr);
+    EXPECT_EQ(empty_List.begin().getNodePtr(), nullptr);
+    EXPECT_EQ(empty_List.end().getNodePtr(), nullptr);
     
     EXPECT_DEATH(empty_List.front(), "");
     EXPECT_DEATH(empty_List.back(), "");
