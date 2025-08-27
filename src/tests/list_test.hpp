@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../src/list.hpp"
+#include "list.hpp"
 #include <vector>
 
 class ListFixture : public ::testing::Test {
