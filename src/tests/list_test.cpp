@@ -89,7 +89,7 @@ TEST_F(ListFixture, modifying_test) {
     EXPECT_EQ(list.front(), -1);
     list.insert(list.begin() + 2, 5);
     auto insert_it = list.begin() + 2;
-    EXPECT_EQ(insert_it, 5);
+    EXPECT_EQ(*insert_it, 5);
     
     /// erase
     list = {1, 2, 3, 4};
