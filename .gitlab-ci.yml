@@ -28,7 +28,9 @@ test-job:
   script:
     - echo "Test Stage"
     - ls -al
-    - ./list_test
+    - cd build
+    - ls -al
+    - ./tests
   needs:
     - build-job
   tags:
