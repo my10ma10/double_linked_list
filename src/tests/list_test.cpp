@@ -103,7 +103,7 @@ TEST_F(ListFixture, modifying_test) {
     EXPECT_EQ(list.front(), 4);
 
     /// merge
-    list = {1, 2, 3};
+    list = List<int>{1, 2, 3};
     List<int> other = {4, 5, 6};
     list.merge(other);
     List<int> res = {1, 2, 3, 4, 5, 6};

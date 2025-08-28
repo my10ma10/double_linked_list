@@ -49,8 +49,8 @@ public:
 
         Iterator& operator=(const Iterator& it);
 
-        bool operator==(const Iterator& other);
-        bool operator!=(const Iterator& other);
+        bool operator==(const Iterator& other) const;
+        bool operator!=(const Iterator& other) const;
 
         T operator*();
     
@@ -60,7 +60,7 @@ public:
     };
 
     List<T>& operator=(std::initializer_list<T> initList);
-    bool operator==(const List& other);
+    bool operator==(const List& other) const;
 
     T front() const;
     T back() const;
@@ -192,7 +192,7 @@ List<T>& List<T>::operator=(std::initializer_list<T> initList) {
 }
 
 template <typename T>
-bool List<T>::operator==(const List& other) {
+bool List<T>::operator==(const List& other) const {
     return (this->head == other.head && this->tail == other.tail);
 }
 
@@ -447,12 +447,12 @@ typename List<T>::Iterator& List<T>::Iterator::operator=(const Iterator& right) 
 }
 
 template <typename T>
-bool List<T>::Iterator::operator==(const Iterator& other) {
+bool List<T>::Iterator::operator==(const Iterator& other) const {
     return this->node == other.node;
 }
 
 template <typename T>
-bool List<T>::Iterator::operator!=(const Iterator& other) {
+bool List<T>::Iterator::operator!=(const Iterator& other) const {
     return this->node != other.node;
 }
 
