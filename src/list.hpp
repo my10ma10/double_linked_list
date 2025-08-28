@@ -61,6 +61,7 @@ public:
 
     List<T>& operator=(std::initializer_list<T> initList);
     bool operator==(const List& other) const;
+    bool operator!=(const List& other) const;
 
     T front() const;
     T back() const;
@@ -193,16 +194,41 @@ List<T>& List<T>::operator=(std::initializer_list<T> initList) {
 
 template <typename T>
 bool List<T>::operator==(const List& other) const {
-    return (this->head == other.head && this->tail == other.tail);
+    if (this == &other) {
+        return true;
+    }
+    if (size() != other.size()) {
+        return false;
+    }
+    auto this_it = begin();
+    auto other_it = other.begin();
+    while (this_it != end() && other_it != other.end()) {
+        if (*this_it != *other_it) {
+            return false;
+        }
+        ++this_it;
+        ++other_it;
+    }
+    return true;
 }
 
 template <typename T>
+bool List<T>::operator!=(const List& other) const {
+    return !(*this == other); 
+}
+template <typename T>
 T List<T>::front() const {
+    if (!head) {
+        throw std::out_of_range("List is empty!");  
+    }
     return head->data;
 }
 
 template <typename T>
 T List<T>::back() const {
+    if (!tail) {
+        throw std::out_of_range("List is empty!");  
+    }
     return tail->data;
 }
 
@@ -240,12 +266,18 @@ void List<T>::pop_front() {
     if (!empty()) {
         erase(begin());
     }
+    else {
+        throw std::out_of_range("List is empty!");
+    }
 }
 
 template <typename T>
 void List<T>::pop_back() {
     if (!empty()) {
         erase(Iterator{tail});
+    }
+    else {
+        throw std::out_of_range("List is empty!");
     }
 }
 
@@ -270,6 +302,9 @@ void List<T>::insert(const Iterator& pos, std::initializer_list<T> initList) {
 
 template <typename T>
 typename List<T>::Iterator List<T>::erase(const Iterator& pos) {
+    if (empty()) {
+        throw std::out_of_range("Trying to erase in empty list!");
+    }
     Node* node = pos.node;
     if (node != nullptr) {
         if (node->prevP != nullptr) { //если не первый
@@ -297,6 +332,9 @@ typename List<T>::Iterator List<T>::erase(const Iterator& pos) {
 
 template <typename T>
 typename List<T>::Iterator List<T>::erase(const Iterator& first, const Iterator& last) {
+    if (empty()) {
+        throw std::out_of_range("Trying to erase in empty list!");
+    }
     Iterator it = first;
     while (it != last) {
         it = erase(it);        

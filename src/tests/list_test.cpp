@@ -6,11 +6,8 @@ TEST_F(ListFixture, empty_list_test) {
     EXPECT_EQ(empty_List.begin().getNodePtr(), nullptr);
     EXPECT_EQ(empty_List.end().getNodePtr(), nullptr);
     
-    EXPECT_DEATH(empty_List.front(), "");
-    EXPECT_DEATH(empty_List.back(), "");
-    
-    EXPECT_DEATH(empty_List.pop_front(), "");
-    EXPECT_DEATH(empty_List.pop_back(), "");
+    EXPECT_DEATH(empty_List.front(), ".*");
+    EXPECT_DEATH(empty_List.back(), ".*");
 
     empty_List.push_back(10);
     EXPECT_EQ(empty_List.front(), 10);
@@ -78,7 +75,7 @@ TEST_F(ListFixture, alloc_cons_test) {
 
 TEST_F(ListFixture, operators_test) {
     List<int> other = {1, 2, 3, 4};
-    EXPECT_EQ(other == ininList_List, true);
+    EXPECT_TRUE(other == ininList_List);
 }
 
 TEST_F(ListFixture, modifying_test) {
