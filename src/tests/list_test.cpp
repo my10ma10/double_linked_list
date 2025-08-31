@@ -78,7 +78,7 @@ TEST_F(ListFixture, operators_test) {
     EXPECT_TRUE(other == ininList_List);
 }
 
-TEST_F(ListFixture, modifying_test) {
+TEST_F(ListFixture, insert_test) {
     List<int> list = {1, 2, 3, 4};
 
     /// insert
@@ -87,9 +87,10 @@ TEST_F(ListFixture, modifying_test) {
     list.insert(list.begin() + 2, 5);
     auto insert_it = list.begin() + 2;
     EXPECT_EQ(*insert_it, 5);
+}
+TEST_F(ListFixture, erase_test) {
+    List<int> list = {1, 2, 3, 4};
     
-    /// erase
-    list = {1, 2, 3, 4};
     list.erase(list.begin() + 1);
     auto erase_it = list.begin() + 1;
     EXPECT_EQ(*erase_it, 3);
@@ -98,9 +99,11 @@ TEST_F(ListFixture, modifying_test) {
     list.erase(list.begin(), list.begin() + 3);
     EXPECT_EQ(list.size(), 1);
     EXPECT_EQ(list.front(), 4);
+}
 
+TEST_F(ListFixture, merge_test) {
+    List<int> list = {1, 2, 3};
     /// merge
-    list = List<int>{1, 2, 3};
     List<int> other = {4, 5, 6};
     list.merge(other);
     List<int> res = {1, 2, 3, 4, 5, 6};
@@ -110,33 +113,43 @@ TEST_F(ListFixture, modifying_test) {
     list.merge(other);
     res = {4, 5, 6};
     EXPECT_EQ(list, res);
+}
 
+TEST_F(ListFixture, clear_test) {
     /// clear
-    list = {1, 2, 3, 4};
+    List<int> list = {1, 2, 3, 4};
     list.clear();
-    res = {};
+    List<int> res {};
+    
     EXPECT_EQ(list.size(), 0);
     EXPECT_EQ(list, res);
+}
 
+TEST_F(ListFixture, sort_test) {
     /// sort
-    list = {-3, 2, 0, -5, 11};
+    List<int> list = {-3, 2, 0, -5, 11};
     list.sort();
-    res = {-5, -3, 0, 2, 11};
+    List<int> res = {-5, -3, 0, 2, 11};
     EXPECT_EQ(list, res);
     
     list = {4, 3, 2, 0};
     list.sort();
     res = {0, 2, 3, 4};
+    
     EXPECT_EQ(list, res);
+}
 
+TEST_F(ListFixture, reverse_test) {
     /// reverse
-    list = {1, 2, 3, 4};
+    List<int> list = {1, 2, 3, 4};
     list.reverse();
-    res = {4, 3, 2, 1};
+    List<int> res = {4, 3, 2, 1};
+
     EXPECT_EQ(list, res);
 
     list = {};
     list.reverse();
+
     EXPECT_EQ(list, empty_List);
 }
 
