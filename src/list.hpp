@@ -196,18 +196,16 @@ template <typename T>
 bool List<T>::operator==(const List& other) const {
     if (this == &other) return true;
     if (size() != other.size()) return false;
-    if (size() == 0 && other.size() == 0) return true;
-    
+
     auto this_it = begin();
     auto other_it = other.begin();
-    while (this_it != end() && other_it != other.end()) {
-        if (*this_it != *other_it) {
-            return false;
-        }
-        ++this_it;
-        ++other_it;
+    auto this_end = end();
+    auto other_end = other.end();
+
+    for (; this_it != this_end && other_it != other_end; ++this_it, ++other_it) {
+        if (*this_it != *other_it) return false;
     }
-    return true;
+    return this_it == this_end && other_it == other_end;
 }
 
 template <typename T>

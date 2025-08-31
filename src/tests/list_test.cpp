@@ -157,11 +157,11 @@ TEST_F(ListFixture, erase_test) {
     EXPECT_EQ(list.front(), 4);
 
 
-    // ininList_List.erase(ininList_List.begin());
-    // EXPECT_EQ(ininList_List.front(), 2);
+    ininList_List.erase(ininList_List.begin());
+    EXPECT_EQ(ininList_List.front(), 2);
     
-    // ininList_List.erase(ininList_List.end());
-    // EXPECT_EQ(ininList_List.back(), 2);
+    ininList_List.erase(ininList_List.end());
+    EXPECT_EQ(ininList_List.back(), 2);
 }
 
 TEST_F(ListFixture, merge_test) {
