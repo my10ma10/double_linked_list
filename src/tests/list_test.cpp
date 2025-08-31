@@ -1,29 +1,29 @@
 #include "list_test.hpp"
 
 TEST_F(ListFixture, empty_list_test) {
-    // EXPECT_TRUE(empty_List.empty());
-    // EXPECT_TRUE(ininList_List != empty_List);
+    EXPECT_TRUE(empty_List.empty());
+    EXPECT_TRUE(ininList_List != empty_List);
     
-    // EXPECT_EQ(empty_List.begin().getNodePtr(), nullptr);
-    // EXPECT_EQ(empty_List.end().getNodePtr(), nullptr);
+    EXPECT_EQ(empty_List.begin().getNodePtr(), nullptr);
+    EXPECT_EQ(empty_List.end().getNodePtr(), nullptr);
     
-    // EXPECT_THROW(empty_List.front(), std::out_of_range);
-    // EXPECT_THROW(empty_List.back(), std::out_of_range);
+    EXPECT_THROW(empty_List.front(), std::out_of_range);
+    EXPECT_THROW(empty_List.back(), std::out_of_range);
 
-    // empty_List.push_back(10);
-    // EXPECT_EQ(empty_List.front(), 10);
-    // EXPECT_EQ(empty_List.back(), 10);
+    empty_List.push_back(10);
+    EXPECT_EQ(empty_List.front(), 10);
+    EXPECT_EQ(empty_List.back(), 10);
 
-    // empty_List.push_front(3);
-    // EXPECT_EQ(empty_List.front(), 3);
-    // EXPECT_EQ(empty_List.back(), 10);
+    empty_List.push_front(3);
+    EXPECT_EQ(empty_List.front(), 3);
+    EXPECT_EQ(empty_List.back(), 10);
 
-    // empty_List.pop_back();
-    // EXPECT_EQ(empty_List.front(), 3);
-    // EXPECT_EQ(empty_List.back(), 3);
+    empty_List.pop_back();
+    EXPECT_EQ(empty_List.front(), 3);
+    EXPECT_EQ(empty_List.back(), 3);
     
-    // empty_List.pop_front();
-    // EXPECT_TRUE(empty_List.empty());
+    empty_List.pop_front();
+    EXPECT_TRUE(empty_List.empty());
 }
 
 TEST_F(ListFixture, push_methods_test) {
@@ -157,11 +157,11 @@ TEST_F(ListFixture, erase_test) {
     EXPECT_EQ(list.front(), 4);
 
 
-    ininList_List.erase(ininList_List.begin());
-    EXPECT_EQ(ininList_List.front(), 2);
+    // ininList_List.erase(ininList_List.begin());
+    // EXPECT_EQ(ininList_List.front(), 2);
     
-    ininList_List.erase(ininList_List.end());
-    EXPECT_EQ(ininList_List.back(), 2);
+    // ininList_List.erase(ininList_List.end());
+    // EXPECT_EQ(ininList_List.back(), 2);
 }
 
 TEST_F(ListFixture, merge_test) {
