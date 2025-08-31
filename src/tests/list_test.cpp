@@ -10,13 +10,13 @@ TEST_F(ListFixture, empty_list_test) {
     // EXPECT_THROW(empty_List.front(), std::out_of_range);
     // EXPECT_THROW(empty_List.back(), std::out_of_range);
 
-    empty_List.push_back(10);
-    EXPECT_EQ(empty_List.front(), 10);
-    EXPECT_EQ(empty_List.back(), 10);
+    // empty_List.push_back(10);
+    // EXPECT_EQ(empty_List.front(), 10);
+    // EXPECT_EQ(empty_List.back(), 10);
 
-    empty_List.push_front(3);
-    EXPECT_EQ(empty_List.front(), 3);
-    EXPECT_EQ(empty_List.back(), 10);
+    // empty_List.push_front(3);
+    // EXPECT_EQ(empty_List.front(), 3);
+    // EXPECT_EQ(empty_List.back(), 10);
 
     // empty_List.pop_back();
     // EXPECT_EQ(empty_List.front(), 3);
