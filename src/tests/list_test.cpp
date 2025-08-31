@@ -120,8 +120,8 @@ TEST_F(ListFixture, operators_test) {
     EXPECT_TRUE(other == ininList_List);
 }
 
-    TEST_F(ListFixture, insert_test) {
-        List<int> list = {1, 2, 3, 4};
+TEST_F(ListFixture, insert_test) {
+    List<int> list = {1, 2, 3, 4};
 
     /// insert
     list.insert(list.begin(), -1);
@@ -161,12 +161,11 @@ TEST_F(ListFixture, erase_test) {
     EXPECT_EQ(ininList_List.front(), 2);
     
     ininList_List.erase(ininList_List.end());
-    EXPECT_EQ(ininList_List.end(), 2);
+    EXPECT_EQ(ininList_List.back(), 2);
 }
 
 TEST_F(ListFixture, merge_test) {
     List<int> list = {1, 2, 3};
-    /// merge
     List<int> other = {4, 5, 6};
     list.merge(other);
     List<int> res = {1, 2, 3, 4, 5, 6};
@@ -179,7 +178,6 @@ TEST_F(ListFixture, merge_test) {
 }
 
 TEST_F(ListFixture, clear_test) {
-    /// clear
     List<int> list = {1, 2, 3, 4};
     list.clear();
     List<int> res {};
@@ -189,7 +187,6 @@ TEST_F(ListFixture, clear_test) {
 }
 
 TEST_F(ListFixture, sort_test) {
-    /// sort
     List<int> list = {-3, 2, 0, -5, 11};
     list.sort();
     List<int> res = {-5, -3, 0, 2, 11};
@@ -203,7 +200,6 @@ TEST_F(ListFixture, sort_test) {
 }
 
 TEST_F(ListFixture, reverse_test) {
-    /// reverse
     List<int> list = {1, 2, 3, 4};
     list.reverse();
     List<int> res = {4, 3, 2, 1};

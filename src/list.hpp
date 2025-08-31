@@ -312,28 +312,36 @@ typename List<T>::Iterator List<T>::erase(const Iterator& pos) {
     if (empty()) {
         throw std::out_of_range("Trying to erase in empty list!");
     }
-    Node* node = pos.node;
-    if (node != nullptr) {
-        if (node->prevP != nullptr) { //если не первый
-            node->prevP->nextP = node->nextP;
-        }    
-        else {
-            head = node->nextP;
-        }
-        if (node->nextP != nullptr) { //если не последний
-            node->nextP->prevP = node->prevP;
-        }
-        else {
-            tail = node->prevP;
-        }
-        Iterator next_iter = Iterator(node->nextP);
-
-        delete node;
-        _size--;
-        return next_iter;
+    if (pos == begin()) {
+        pop_front(pos);
+    }
+    else if (pos == end()) {
+        pop_back();
     }
     else {
-        throw std::out_of_range("Invalid erasing");
+        Node* node = pos.node;
+        if (node != nullptr) {
+            if (node->prevP != nullptr) { //если не первый
+                node->prevP->nextP = node->nextP;
+            }    
+            else {
+                head = node->nextP;
+            }
+            if (node->nextP != nullptr) { //если не последний
+                node->nextP->prevP = node->prevP;
+            }
+            else {
+                tail = node->prevP;
+            }
+            Iterator next_iter = Iterator(node->nextP);
+
+            delete node;
+            _size--;
+            return next_iter;
+        }
+        else {
+            throw std::out_of_range("Invalid erasing");
+        }
     }
 }
 
