@@ -283,13 +283,20 @@ void List<T>::pop_back() {
 
 template <typename T>
 void List<T>::insert(const Iterator& pos, const T& value) {
-    Iterator prev_node_iter = pos-1;
-    Iterator next_node_iter = pos;
+    if (pos == begin()) {
+        push_front(value);
+    }
+    else if (pos == end()) {
+        push_back(value);
+    }
+    else {
+        Iterator prev_node_iter = pos-1;
+        Iterator next_node_iter = pos;
 
-    Node* new_node = new Node(value, prev_node_iter.node, next_node_iter.node);
-    prev_node_iter.node->nextP = new_node;
-    next_node_iter.node->prevP = new_node;
-
+        Node* new_node = new Node(value, prev_node_iter.node, next_node_iter.node);
+        prev_node_iter.node->nextP = new_node;
+        next_node_iter.node->prevP = new_node;
+    }
     _size++;
 }
 

@@ -78,18 +78,29 @@ TEST_F(ListFixture, operators_test) {
     EXPECT_TRUE(other == ininList_List);
 }
 
-TEST_F(ListFixture, insert_test) {
-    List<int> list = {1, 2, 3, 4};
+    TEST_F(ListFixture, insert_test) {
+        List<int> list = {1, 2, 3, 4};
 
     /// insert
-    // list.insert(list.begin(), -1);
+    list.insert(list.begin(), -1);
 
-    // EXPECT_EQ(list.front(), -1);
+    EXPECT_EQ(list.front(), -1);
+
+    list.insert(list.end(), 5);
 
     list.insert(list.begin() + 2, 5);
     auto insert_it = list.begin() + 2;
-
+    
     EXPECT_EQ(*insert_it, 5);
+
+
+    // list = {1, 2, 3, 4};
+    // std::initializer_list<int> other = {5, 6, 7};
+    // List<int> res = {5, 6, 7, 1, 2, 3, 4};
+
+    // list.insert(list.begin(), other);
+
+    // EXPECT_EQ(list, res);
 }
 
 TEST_F(ListFixture, erase_test) {
