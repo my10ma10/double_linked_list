@@ -22,8 +22,8 @@ protected:
     size_t _size = 0;
     
 public:
-    explicit List();
-    explicit List(size_t count, const T& alloc_elem);
+    List();
+    List(size_t count, const T& alloc_elem);
     List(std::initializer_list<T> initList);
     List(typename List<T>::Iterator from, typename List<T>::Iterator to);
 

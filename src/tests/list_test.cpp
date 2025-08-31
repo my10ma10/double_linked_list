@@ -2,6 +2,7 @@
 
 TEST_F(ListFixture, empty_list_test) {
     EXPECT_TRUE(empty_List.empty());
+    EXPECT_TRUE(ininList_List != empty_List);
     
     EXPECT_EQ(empty_List.begin().getNodePtr(), nullptr);
     EXPECT_EQ(empty_List.end().getNodePtr(), nullptr);
@@ -17,9 +18,50 @@ TEST_F(ListFixture, empty_list_test) {
     EXPECT_EQ(empty_List.front(), 3);
     EXPECT_EQ(empty_List.back(), 10);
 
+    empty_List.pop_back();
+    EXPECT_EQ(empty_List.front(), 3);
+    EXPECT_EQ(empty_List.back(), 3);
+    
     empty_List.pop_front();
-    EXPECT_EQ(empty_List.front(), 10);
-    EXPECT_EQ(empty_List.back(), 10);
+    EXPECT_TRUE(empty_List.empty());
+}
+
+TEST_F(ListFixture, push_methods_test) {
+    ininList_List.push_back(5);
+    EXPECT_EQ(ininList_List.back(), 5);
+
+    ininList_List.push_front(-5);
+    EXPECT_EQ(ininList_List.front(), -5);
+}
+
+TEST_F(ListFixture, pop_methods_test) {
+    ininList_List.pop_back();
+    EXPECT_EQ(ininList_List.back(), 3);
+
+    ininList_List.pop_front();
+    EXPECT_EQ(ininList_List.front(), 2);
+
+    EXPECT_THROW(empty_List.pop_front(), std::out_of_range);
+    EXPECT_THROW(empty_List.pop_back(), std::out_of_range);
+}
+
+TEST_F(ListFixture, default_cons) {
+    List<int> list;
+    EXPECT_TRUE(list.empty());
+
+    List<int> list2 = {};
+    EXPECT_TRUE(list2.empty());
+
+    EXPECT_TRUE(list == list2);
+}
+
+TEST_F(ListFixture, self_assignment) {
+    List<int> list = {1, 2, 3, 4};
+    list = list;
+
+    EXPECT_EQ(list.size(), 4);
+    EXPECT_EQ(list.front(), 1);
+    EXPECT_EQ(list.back(), 4);
 }
 
 TEST_F(ListFixture, init_list_test) {
@@ -83,24 +125,23 @@ TEST_F(ListFixture, operators_test) {
 
     /// insert
     list.insert(list.begin(), -1);
-
     EXPECT_EQ(list.front(), -1);
 
     list.insert(list.end(), 5);
+    EXPECT_EQ(list.back(), 5);
 
     list.insert(list.begin() + 2, 5);
-    auto insert_it = list.begin() + 2;
-    
+    auto insert_it = list.begin() + 2;    
     EXPECT_EQ(*insert_it, 5);
 
 
-    // list = {1, 2, 3, 4};
-    // std::initializer_list<int> other = {5, 6, 7};
-    // List<int> res = {5, 6, 7, 1, 2, 3, 4};
+    list = {1, 2, 3, 4};
+    std::initializer_list<int> other = {5, 6, 7};
+    List<int> res = {5, 6, 7, 1, 2, 3, 4};
 
-    // list.insert(list.begin(), other);
+    list.insert(list.begin(), other);
 
-    // EXPECT_EQ(list, res);
+    EXPECT_EQ(list, res);
 }
 
 TEST_F(ListFixture, erase_test) {
@@ -114,6 +155,13 @@ TEST_F(ListFixture, erase_test) {
     list.erase(list.begin(), list.begin() + 3);
     EXPECT_EQ(list.size(), 1);
     EXPECT_EQ(list.front(), 4);
+
+
+    ininList_List.erase(ininList_List.begin());
+    EXPECT_EQ(ininList_List.front(), 2);
+    
+    ininList_List.erase(ininList_List.end());
+    EXPECT_EQ(ininList_List.end(), 2);
 }
 
 TEST_F(ListFixture, merge_test) {
