@@ -194,12 +194,10 @@ List<T>& List<T>::operator=(std::initializer_list<T> initList) {
 
 template <typename T>
 bool List<T>::operator==(const List& other) const {
-    if (this == &other) {
-        return true;
-    }
-    if (size() != other.size()) {
-        return false;
-    }
+    if (this == &other) return true;
+    if (size() != other.size()) return false;
+    if (size() == 0 && other.size() == 0) return true;
+    
     auto this_it = begin();
     auto other_it = other.begin();
     while (this_it != end() && other_it != other.end()) {
