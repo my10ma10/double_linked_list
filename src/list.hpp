@@ -218,7 +218,7 @@ bool List<T>::operator!=(const List& other) const {
 }
 template <typename T>
 T List<T>::front() const {
-    if (empty()) {
+    if (!head) {
         throw std::out_of_range("List is empty!");
     }
     return head->data;
@@ -226,7 +226,7 @@ T List<T>::front() const {
 
 template <typename T>
 T List<T>::back() const {
-    if (empty()) {
+    if (!tail) {
         throw std::out_of_range("List is empty!");  
     }
     return tail->data;
