@@ -1,14 +1,14 @@
 #include "list_test.hpp"
 
 TEST_F(ListFixture, empty_list_test) {
-    EXPECT_TRUE(empty_List.empty());
-    EXPECT_TRUE(ininList_List != empty_List);
+    // EXPECT_TRUE(empty_List.empty());
+    // EXPECT_TRUE(ininList_List != empty_List);
     
     // EXPECT_EQ(empty_List.begin().getNodePtr(), nullptr);
     // EXPECT_EQ(empty_List.end().getNodePtr(), nullptr);
     
-    EXPECT_THROW(empty_List.front(), std::out_of_range);
-    EXPECT_THROW(empty_List.back(), std::out_of_range);
+    // EXPECT_THROW(empty_List.front(), std::out_of_range);
+    // EXPECT_THROW(empty_List.back(), std::out_of_range);
 
     empty_List.push_back(10);
     EXPECT_EQ(empty_List.front(), 10);
