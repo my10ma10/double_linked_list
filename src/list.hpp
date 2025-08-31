@@ -313,7 +313,7 @@ typename List<T>::Iterator List<T>::erase(const Iterator& pos) {
         throw std::out_of_range("Trying to erase in empty list!");
     }
     if (pos == begin()) {
-        pop_front(pos);
+        pop_front();
     }
     else if (pos == end()) {
         pop_back();
