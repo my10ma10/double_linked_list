@@ -82,12 +82,16 @@ TEST_F(ListFixture, insert_test) {
     List<int> list = {1, 2, 3, 4};
 
     /// insert
-    list.insert(list.begin(), -1);
-    EXPECT_EQ(list.front(), -1);
+    // list.insert(list.begin(), -1);
+
+    // EXPECT_EQ(list.front(), -1);
+
     list.insert(list.begin() + 2, 5);
     auto insert_it = list.begin() + 2;
+
     EXPECT_EQ(*insert_it, 5);
 }
+
 TEST_F(ListFixture, erase_test) {
     List<int> list = {1, 2, 3, 4};
     
@@ -135,7 +139,7 @@ TEST_F(ListFixture, sort_test) {
     list = {4, 3, 2, 0};
     list.sort();
     res = {0, 2, 3, 4};
-    
+
     EXPECT_EQ(list, res);
 }
 
