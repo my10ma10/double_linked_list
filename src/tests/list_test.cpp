@@ -141,6 +141,11 @@ TEST_F(ListFixture, insert_test) {
 
     list.insert(list.begin(), other);
 
+    for (List<int>::Iterator it = list.begin(); it != list.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;  
+
     EXPECT_EQ(list, res);
 }
 
