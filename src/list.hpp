@@ -310,30 +310,39 @@ typename List<T>::Iterator List<T>::erase(const Iterator& pos) {
     if (empty()) {
         throw std::out_of_range("Trying to erase in empty list!");
     }
-
-    Node* node = pos.node;
-    if (node == nullptr) {
-        throw std::out_of_range("Invalid erasing");
+    if (pos.getNodePtr() == begin()) {
+        pop_front();
+        return begin();
     }
-
-    Node* next_node = node->nextP;
-
-    if (node->prevP != nullptr) {
-        node->prevP->nextP = node->nextP;
-    } else {
-        head = node->nextP;
+    else if (pos.getNodePtr() == end()) {
+        pop_back();
+        return end();
     }
+    else {
+        Node* node = pos.node;
+        if (node != nullptr) {
+            if (node->prevP != nullptr) { //если не первый
+                node->prevP->nextP = node->nextP;
+            }    
+            else {
+                head = node->nextP;
+            }
+            if (node->nextP != nullptr) { //если не последний
+                node->nextP->prevP = node->prevP;
+            }
+            else {
+                tail = node->prevP;
+            }
+            Iterator next_iter = Iterator(node->nextP);
 
-    if (node->nextP != nullptr) {
-        node->nextP->prevP = node->prevP;
-    } else {
-        tail = node->prevP;
+            delete node;
+            _size--;
+            return next_iter;
+        }
+        else {
+            throw std::out_of_range("Invalid erasing");
+        }
     }
-
-    delete node;
-    --_size;
-
-    return Iterator(next_node);
 }
 
 template <typename T>
