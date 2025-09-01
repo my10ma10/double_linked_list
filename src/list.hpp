@@ -294,15 +294,14 @@ void List<T>::insert(const Iterator& pos, const T& value) {
         Node* new_node = new Node(value, prev_node_iter.node, next_node_iter.node);
         prev_node_iter.node->nextP = new_node;
         next_node_iter.node->prevP = new_node;
+        _size++;
     }
-    _size++;
 }
 
 template <typename T>
 void List<T>::insert(const Iterator& pos, std::initializer_list<T> initList) {
     for (size_t i = 0; i < initList.size(); ++i) {
         insert(pos, *(initList.begin() + i));
-        std::cout << "inserting " << *(initList.begin() + i) << std::endl;
     }
 }
 
