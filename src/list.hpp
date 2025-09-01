@@ -196,16 +196,18 @@ template <typename T>
 bool List<T>::operator==(const List& other) const {
     if (this == &other) return true;
     if (size() != other.size()) return false;
-
+    if (size() == 0 && other.size() == 0) return true;
+    
     auto this_it = begin();
     auto other_it = other.begin();
-    auto this_end = end();
-    auto other_end = other.end();
-
-    for (; this_it != this_end && other_it != other_end; ++this_it, ++other_it) {
-        if (*this_it != *other_it) return false;
+    while (this_it != end() && other_it != other.end()) {
+        if (*this_it != *other_it) {
+            return false;
+        }
+        ++this_it;
+        ++other_it;
     }
-    return this_it == this_end && other_it == other_end;
+    return true;
 }
 
 template <typename T>
@@ -310,9 +312,11 @@ typename List<T>::Iterator List<T>::erase(const Iterator& pos) {
     }
     if (pos == begin()) {
         pop_front();
+        return begin();
     }
     else if (pos == end()) {
         pop_back();
+        return end();
     }
     else {
         Node* node = pos.node;
