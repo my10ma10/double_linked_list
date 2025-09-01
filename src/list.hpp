@@ -300,7 +300,7 @@ void List<T>::insert(const Iterator& pos, const T& value) {
 
 template <typename T>
 void List<T>::insert(const Iterator& pos, std::initializer_list<T> initList) {
-    for (size_t i = initList.size()-1; i >= 0; --i) {
+    for (int i = initList.size()-1; i >= 0; --i) {
         insert(pos, *(initList.begin() + i));
     }
 }
