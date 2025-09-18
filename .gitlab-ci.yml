@@ -45,7 +45,7 @@ docs-job:
     - echo "Docs Stage"
     - sudo apt install doxygen -y
     - mkdir -p docs
-    - doxygen Doxyfile
+    - doxygen -g Doxyfile
   needs:
     - test-job
   artifacts:
