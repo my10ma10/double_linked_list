@@ -47,7 +47,8 @@ docs-job:
     - mkdir -p docs
     - doxygen -g Doxyfile
     - doxygen Doxyfile
-    - ls -la docs/
+    - cat -n Doxyfile
+    # - ls -la docs/
     - ls -la docs/html/
   needs:
     - test-job
