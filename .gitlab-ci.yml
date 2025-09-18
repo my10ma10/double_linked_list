@@ -43,7 +43,7 @@ docs-job:
   stage: docs
   script:
     - echo "Docs Stage"
-    - sudo apt install doxygen -y
+    - sudo apt install doxygen graphviz -y
     - mkdir -p docs
     - doxygen -g Doxyfile
     - doxygen Doxyfile
