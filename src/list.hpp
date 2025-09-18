@@ -4,91 +4,267 @@
 
 #include "merge.hpp"
 
+/**
+ * @brief Класс двусвязного списка, аналогичный std::list<T>
+ * @author eyevievv
+ * @attention Класс создан для проработки понимания стандартной библиотеки C++.
+ * В дальнейших комментариях термин "список" относится к данному классу ```List```, а
+ *      "список инициализации" к ```std::initializer_list<T>```
+ */
 template <typename T>
 class List {
 protected:
+    /**
+     * @name Узел (Node)
+     * @brief Класс узла матрицы
+     */
     struct Node {
+        /// @brief Указатель на предыдущий узел
+        Node* prevP = nullptr;
+
+        /// @brief Указатель на следующий узел
+        Node* nextP = nullptr;
+
+        /// @brief Хранящиеся данные
+        T data;
+
+        /**
+         * @brief Конструктор узла
+         * @param data Хранящиеся данные
+         * @param prevP Указатель на предыдущий узел
+         * @param nextP Указатель на следующий узел
+         */
         Node(const T& data, Node* prevP = nullptr, Node* nextP = nullptr)
             : data(data), prevP(prevP), nextP(nextP) {}
-        Node* prevP = nullptr;
-        Node* nextP = nullptr;
-        T data;
+
     };
+
     
+    /**
+     * @brief Функция обмена данными между ```copy``` и текущим списком
+     * @param copy Список, с которым обменивается данными текущий
+     */
     void swapThis(List& copy);
 
+    /// @brief Указатель на первый укел списка
     Node* head = nullptr;
+
+    /// @brief Указатель на последний укел списка
     Node* tail = nullptr;
+
+    /// @brief Количество элементов списка
     size_t _size = 0;
     
 public:
+
+    /// @brief Заполняет поля класса базовыми значениями
     List();
+
+    /**
+     * @brief Заполненяет список ```count``` элементами значения ```alloc_elem```
+     * @param count Количество элементов
+     * @param alloc_elem Элемент для заполнения списка
+     */
     List(size_t count, const T& alloc_elem);
+
+    /**
+     * @brief Заполненяет список значениями из ```std::initializer_list<T>```
+     * @param initList Список инициализации
+     */
     List(std::initializer_list<T> initList);
+
+    /**
+     * @brief Заполняет список с помощью итераторов
+     * @param from Итератор на первый принимаемый элемент
+     * @param to Итератор на последний принимаемый элемент
+     */
     List(typename List<T>::Iterator from, typename List<T>::Iterator to);
 
+
     /// правило пяти
+
+    /// @brief Дектруктор класса
     ~List();
+
+    /// @brief Конструктор копирования (глубинное)
+    /// @param other Копируемый список
     List(const List<T>& other);
+
+    /// @brief Контруктор перемещения
+    /// @param other Перемещаемый объект
     List(List<T>&& other);
+
+    /// @brief Оператор копирующего присваивания
+    /// @param other Копируемый список
+    /// @return Ссылка на текущий список
     List<T>& operator=(const List<T>& other);
+
+    /// @brief Оператор перемещающего присваивания
+    /// @param other Перемещаемый список
+    /// @return Ссылка на текущий список
     List<T>& operator=(List<T>&& other);
-    
+
+    /// @brief Двунаправленный итератор для обхода списка
     struct Iterator {
         friend class List;
         
+        /// @brief Конструирование на основе узла
+        /// @param node Указатель на узел
         explicit Iterator(Node* node) : node(node) {}
+        
+        /// @brief Оператор сложения; сдвиг на ```shift``` элементов влево
+        /// @param shift На сколько элементов сдвинуть итератор влево
+        /// @return Итератор, указывающий на элемент в позиции ``` позиция текущего узла + shift```
+        /// @exception При попытке выйти за пределы списка
         Iterator operator+(size_t shift) const;
+        
+        /// @brief Оператор вычитания; сдвиг на ```shift``` элементов вправо
+        /// @param shift На сколько элементов сдвинуть итератор вправо
+        /// @return Итератор, указывающий на элемент в позиции ``` позиция текущего узла - shift```
+        /// @exception При попытке выйти за пределы списка
         Iterator operator-(size_t shift) const;
 
+        
+        /// @brief Пре-инктрементный сдвиг на один элемент влево
+        /// @return Итератор, указывающий на следующий элемент
         Iterator& operator++();
+        
+        /// @brief Пост-инктрементный сдвиг на один элемент влево
+        /// @return Итератор, указывающий на следующий элемент
         Iterator operator++(int);
         
+        
+        /// @brief Пре-инктрементный сдвиг на один элемент вправо
+        /// @return Итератор, указывающий на следующий элемент
         Iterator& operator--();
+        
+        /// @brief Пост-инктрементный сдвиг на один элемент вправо
+        /// @return Итератор, указывающий на следующий элемент
         Iterator operator--(int);
-
+        
+        /// @brief Оператор копирующего присваиваний
+        /// @param it Копируемый итератор
+        /// @return Ссылка на текущий итератор
         Iterator& operator=(const Iterator& it);
 
+        
+        /// @brief Сравнение двух итераторов (указателей на их элементы)
+        /// @param other Сравниваемый итератор
+        /// @return Результат сравнения
         bool operator==(const Iterator& other) const;
+        
+        /// @brief Проверка на неравенство двух итераторов (указателей на их элементы)
+        /// @param other Сравниваемый итератор
+        /// @return Результат сравнения
         bool operator!=(const Iterator& other) const;
 
+        /// @brief Даёт доступ к элементу, на который указывает итератор
+        /// @return Элемент, на который указывает итератор
         T operator*();
     
+        /// @brief Даёт доступ к указателю на текущий узел извне
+        /// @return Указатель на текущий узел
         Node* getNodePtr() const {return node;}
+    
     protected:
+        /// @brief Текущий узел
         Node* node = nullptr;
     };
+    
 
+    /// @brief Инициализация списка через ```std::initializer_list<T>```
+    /// @param initList Список инициализации
+    /// @return Ссылка на текущий список
     List<T>& operator=(std::initializer_list<T> initList);
+    
+    /// @brief Поэлементное сравнение двух списков 
+    /// @param other Сравниваемый элемент
+    /// @return Результат сравнения
     bool operator==(const List& other) const;
+    
+    /// @brief Поэлементная проверка на неравенство двух списков 
+    /// @param other Сравниваемый элемент
+    /// @return Результат сравнения 
     bool operator!=(const List& other) const;
 
+
+    /// @brief Доступ к первому элементу списка
+    /// @return Первый элемент
     T front() const;
+
+    /// @brief Доступ к последнему элементу списка
+    /// @return Последний элемент
     T back() const;
 
+    /// @brief Добавления в начало списка
+    /// @param data Добавляемые данные
     void push_front(const T& data);
+    
+    /// @brief Добавления в конец списка
+    /// @param data Добавляемые данные
     void push_back(const T& data);
-
+    
+    /// @brief Удаление из начала списка
     void pop_front();
+    
+    /// @brief Удаление из конца списка
     void pop_back();
 
+
+    /// @brief Вставка элемента в позицию
+    /// @param pos Итератор, указывающий на позицию для вставки
+    /// @param value Вставляемое значение
     void insert(const Iterator& pos, const T& value);
+
+    /// @brief Вставка нескольких элементов в позицию
+    /// @param pos Итератор, указывающий на позицию для вставки
+    /// @param initList Вставляемые значения
     void insert(const Iterator& pos, std::initializer_list<T> initList);
 
+    /// @brief Удаление элемента в позиции
+    /// @param pos Позиция удаляемого элемента
+    /// @return Итератор на следующий элемент
     Iterator erase(const Iterator& pos);    
+    
+    /// @brief Удаление элементов в диапазоне [```first```, ```last```)
+    /// @param first Первый удаляемый элемент
+    /// @param last Элемент, до которого идёт удаление
+    /// @return Итератор на элемент last
     Iterator erase(const Iterator& first, const Iterator& last);
     
+
+    /// @brief Соединение списков копированием
+    /// @param other Добавляемый в конец список
     void merge(const List<T>& other);
+    
+    /// @brief Соединение списков перемещением
+    /// @param other Добавляемый в конец список
     void merge(List<T>&& other);
+    
+    /// @brief Сортирует элементов в списке 
+    /// @details Используется сортировка слиянием
     void sort();
+    
+    /// @brief Оборачиваени списка (элементы в обратном порядке)
     void reverse();
 
+    /// @brief Удаляет все элементы списка 
     void clear();
 
+    /// @brief Проверка на наличие элементов в списке
+    /// @return ```true```, если список пустой, иначе ```false```
     bool empty() const;
+    
+    /// @brief Возвращает размер списка
+    /// @return Количество элементов списка
     size_t size() const;    
 
+    /// @brief Возвращает итератор на первый элемент списка
+    /// @return Итератор на первый элемент списка
     Iterator begin() const;
+    
+    /// @brief Возвращает итератор на последний элемент списка
+    /// @return Итератор на последний элемент списка
     Iterator end() const;
 };
 
