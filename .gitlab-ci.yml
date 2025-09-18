@@ -45,7 +45,6 @@ docs-job:
     - echo "Docs Stage"
     - sudo apt install doxygen -y
     - doxygen Doxyfile
-    - ls -la docs/html/
   needs:
     - test-job
   artifacts:
